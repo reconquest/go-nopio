@@ -1,5 +1,9 @@
 package nopio
 
+import (
+	"io"
+)
+
 // NopCloser represents Closer interface with no-op Close method.
 type NopCloser struct{}
 
@@ -16,12 +20,12 @@ func (NopWriter) Write(data []byte) (int, error) {
 	return len(data), nil
 }
 
-// NopReader represents Reader interface with no-op Reade method.
+// NopReader represents Reader interface with no-op Read method.
 type NopReader struct{}
 
-// Read will return zero read bytes and nil error.
+// Read will return zero read bytes and io.EOF error.
 func (NopReader) Read(data []byte) (int, error) {
-	return 0, nil
+	return 0, io.EOF
 }
 
 // NopWriteCloser represents no-op Writer and Closer.
